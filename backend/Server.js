@@ -13,6 +13,13 @@ let students = [
 
 app.use(bodyParser.json());
 
+//route handles
+
+//Get all students
+app.get('/student', (req, res) => {
+  res.json(students);
+});
+
 app.listen(PORT, () => {
-  console.log(`listening on ${PORT}`, students);
+  console.log(`listening on ${PORT}`);
 });
