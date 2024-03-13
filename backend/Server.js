@@ -5,10 +5,10 @@ const PORT = 8000;
 
 //dummy data
 let students = [
-  { id: 1, name: 'John', lastname: 'Jonnie', age: 20, class: '1A' },
-  { id: 2, name: 'May', lastname: 'Jon', age: 20, class: '1A' },
-  { id: 3, name: 'June', lastname: 'May', age: 20, class: '1A' },
-  { id: 4, name: 'Rati', lastname: 'Doe', age: 20, class: '1A' }
+  { id: 1, name: 'John', lastname: 'Jonnie', age: 20 },
+  { id: 2, name: 'May', lastname: 'Jon', age: 20 },
+  { id: 3, name: 'June', lastname: 'May', age: 20 },
+  { id: 4, name: 'Rati', lastname: 'Doe', age: 20 }
 ];
 
 app.use(bodyParser.json());
@@ -29,6 +29,15 @@ app.get('/student/:id', (req, res) => {
   } else {
     res.status(404).json({ error: 'Student not found' });
   }
+});
+
+//Post ,create a new student
+app.post('/students', (req, res) => {
+  const { name, lastname, age } = req.body;
+  const id = students.length + 1;
+  const newStudent = { name, lastname, age };
+  students.push(newStudent);
+  res.status(201).json(newStudent);
 });
 
 app.listen(PORT, () => {
