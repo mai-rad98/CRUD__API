@@ -40,6 +40,31 @@ app.post('/students', (req, res) => {
   res.status(201).json(newStudent);
 });
 
+// PUT /students/:id - Update an existing student by ID
+app.put('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, age, grade } = req.body;
+  const index = students.findIndex((student) => student.id === id);
+  if (index !== -1) {
+    students[index] = { id, name, age, grade };
+    res.json(students[index]);
+  } else {
+    res.status(404).json({ error: 'Student not found' });
+  }
+});
+
+// DELETE /students/:id - Delete a student by ID
+app.delete('/students/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = students.findIndex((student) => student.id === id);
+  if (index !== -1) {
+    students.splice(index, 1);
+    res.json({ message: 'Student deleted successfully' });
+  } else {
+    res.status(404).json({ error: 'Student not found' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
